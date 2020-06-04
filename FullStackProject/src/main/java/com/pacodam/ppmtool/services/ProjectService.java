@@ -6,6 +6,8 @@ import com.pacodam.ppmtool.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProjectService {
 
@@ -30,5 +32,10 @@ public class ProjectService {
             throw new ProjectIdException("Project ID '" + projectId.toUpperCase() + "' does not exists");
         }
         return project;
+    }
+
+    public Iterable<Project> findAll() {
+        return projectRepository.findAll();
+
     }
 }
