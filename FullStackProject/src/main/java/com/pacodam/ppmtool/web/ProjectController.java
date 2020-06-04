@@ -1,6 +1,7 @@
 package com.pacodam.ppmtool.web;
 
 import com.pacodam.ppmtool.domain.Project;
+import com.pacodam.ppmtool.services.MapValidationErrorService;
 import com.pacodam.ppmtool.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -20,18 +22,17 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private MapValidationErrorService mapValidationErrorService;
+
     @PostMapping("")
     public ResponseEntity<?> createNewProject (@Valid @RequestBody Project project, BindingResult result){
 
-        if(result.hasErrors()){
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if(errorMap != null) return errorMap;
 
-            Map<String, String> errorMap = new HashMap<>();
-            for(FieldError error: result.getFieldErrors() ){
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-            return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
-        }
         Project project1 = projectService.saverOrUpdate(project);
+
         return new ResponseEntity<Project>(project, HttpStatus.CREATED);
     }
 
