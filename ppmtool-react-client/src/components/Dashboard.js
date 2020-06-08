@@ -7,7 +7,7 @@ export default class Dashboard extends Component {
     return (
       <div>
         <Header />
-        <h1>Welcome to the Djiashboard</h1>
+        <h1 className="alert alert-warning">Welcome to the Djiashboard</h1>
         <ProjectItem />
       </div>
     );
