@@ -12,9 +12,9 @@ if(window.navigator.userAgent.includes("Chrome")) {
         rootReducer, 
         initialState, 
         compose(
-            applyMiddleware(...middleware),
-            window._REDUX_DEVTOOLS_EXTENSION_&&
-             window._REDUX_DEVTOOLS_EXTENSION_() 
+            applyMiddleware(thunk),
+            window.window.__REDUX_DEVTOOLS_EXTENSION__ ?
+             window.window.__REDUX_DEVTOOLS_EXTENSION__()  : f=> f
              
             )
             );
