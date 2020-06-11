@@ -37,7 +37,7 @@ class AddProject extends Component {
     e.preventDefault();
     const newProject = {
         projectName: this.state.projectName,
-        projectIdentifier: this.state.projectName,
+        projectIdentifier: this.state.projectIdentifier,
         description: this.state.description,
         start_date: this.state.start_date,
         end_date: this.state.end_date
